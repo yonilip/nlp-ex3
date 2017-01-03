@@ -2,6 +2,8 @@ from math import exp, log
 from nltk.corpus import treebank
 from scipy.optimize import fmin_bfgs
 from features import make_feature_function
+import numpy
+
 NUM_FEATURES = 100
 
 sents = treebank.tagged_sents()
@@ -77,11 +79,11 @@ def minus_log_likelihood(w):
 
 
 def minus_gradient(w):
-    return -1 * gradient(w)
+    return -1 * numpy.array(gradient(w))
 
 
 def optimize():
     best_w = fmin_bfgs(minus_log_likelihood, [1] * NUM_FEATURES, fprime=minus_gradient)
-    with open("results.txt") as res_file:
+    with open("results.txt", "w") as res_file:
         res_file.write(str(best_w))
     return best_w
