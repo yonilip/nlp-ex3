@@ -1,0 +1,29 @@
+Yonatan Lipman
+Yuval Globerson
+
+2.b.
+make_feature_function gets a txt description of a feature function
+and returns a callabe python function. It does some pre-processing
+of the rules in order to optimize the resulting function (e.g. to
+divide the rules by the current tag, since all rules involve a tag
+it enables to reduce running time by the number of tags)
+Since feature calculation is independent of any of the other elem-
+ents, the feature can be pre-calculated to every set of input, ho-
+wever, as observed using a profiler, it is relatively cheap and
+won't improve much.
+
+2.c
+The log likelihood and it's gradient are computed in a direct way.
+Some optimization is done in order to save double calculation of 
+the same element (hecne computing f_value and z_values before hand
+)
+
+2.d
+BFGS took a long time, but eventually finished (best weights vect-
+or is attached). Some possible improvments we have considered are
+using optimizing further the gradient computation, and  using a
+different subset of the training data each. Another possibility is
+to use BFGS on a small subset (say 100 sentences) and then use the
+resulting vector as an initial guess, this time with the whole tr-
+aining set.
+
